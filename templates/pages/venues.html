@@ -1,0 +1,43 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Fyyur | Venues{% endblock %}
+{% block content %}
+<div class="row venues">
+{% for state, city in state_city%}
+
+<h3>{{ city }}, {{ state }}</h3>
+<ul class="col-sm-4"></ul>
+{% for venue in areas %}
+   {% if venue.state == state %}
+   
+          <div class="tile tile-venue">
+              <img src="{{ venue.image_link }}" alt="Artist Image" />
+              <h5><a href="/venues/{{ venue.id }}">{{ venue.name }}</a></h5>
+              <h5><p>Adresse </p> {{venue.address}}</h5>
+              <button class="delete-button" data-id="{{ venue.id }}">&cross;</button>
+          </div>
+    
+      {% endif %}
+{% endfor %}
+</ul>
+{% endfor %}
+</div>
+
+
+
+<script>
+const deleteBtns = document.querySelectorAll('.delete-button');
+      for (let i = 0; i < deleteBtns.length; i++) {
+        const btn = deleteBtns[i];
+        btn.onclick = function(e) {
+          const venueId = e.target.dataset['id'];
+          fetch('/venues/' + venueId, {
+            method: 'DELETE'
+          })
+          .then(function() {
+            const item = e.target.parentElement;
+            item.remove();
+          })
+        }
+      }
+</script>
+{% endblock %}

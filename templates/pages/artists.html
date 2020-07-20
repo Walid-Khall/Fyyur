@@ -1,0 +1,15 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Fyyur | Artists{% endblock %}
+{% block content %}
+<div class="row artist">
+    {%for artist in artists %}
+    <div class="col-sm-4">
+        <div class="tile tile-artist">
+            <img src="{{ artist.image_link }}" alt="Artist Image" />
+			<h5><a href="/artists/{{ artist.id }}">{{ artist.name }}</a></h5>
+			<h5><p>Genres </p> {{artist.genres}}</h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
